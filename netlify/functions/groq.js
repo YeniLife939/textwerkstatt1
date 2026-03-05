@@ -8,6 +8,7 @@ exports.handler = async function(event) {
 
   const GROQ_API_KEY = process.env.GROQ_API_KEY;
   if (!GROQ_API_KEY) {
+    console.log("Key vorhanden:", !!GROQ_API_KEY);
     return { statusCode: 500, body: JSON.stringify({ error: "API key not configured" }) };
   }
 
