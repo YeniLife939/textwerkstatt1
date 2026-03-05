@@ -672,14 +672,17 @@ Antworte NUR mit validem JSON, ohne Markdown-Backticks, in diesem Format:
       })
     });
 
-    const data = await res.json();
+    const raw = await res.text();
+    console.log("Groq raw response:", raw);
+    const data = JSON.parse(raw);
+    if (!data.choices) throw new Error("No choices in response: " + raw);
     const text = data.choices[0].message.content;
     const clean = text.replace(/```json|```/g, "").trim();
     const d = JSON.parse(clean);
     currentPromptData = d;
     renderPrompt(d);
   } catch(e) {
-    body.innerHTML = `<p style="padding:20px;color:#c44;font-size:0.9rem;">⚠️ Fehler beim Laden. Bitte nochmal versuchen.</p>`;
+    body.innerHTML = `<p style="padding:20px;color:#c44;font-size:0.9rem;">⚠️ Fehler: ${e.message}<br><small>${JSON.stringify(e)}</small></p>`;
   }
 }
 
