@@ -572,7 +572,7 @@
 <script>
 
 // ── API KEY MANAGEMENT ──
-function getApiKey() { return ''; } // Key is stored securely on server
+function getApiKey() { return ''; }
 
 function saveApiKey() {
   const key = document.getElementById('apiKeyInput').value.trim();
@@ -640,11 +640,6 @@ function selectTopic(t) {
 }
 
 async function generatePrompt() {
-  if (!getApiKey()) {
-    showToast('⚠️ Bitte zuerst den API-Key eingeben!');
-    document.getElementById('apiKeyInput').focus();
-    return;
-  }
   const card = document.getElementById('promptCard');
   const body = document.getElementById('promptBody');
   const niveau = document.getElementById('niveauSelect').value;
